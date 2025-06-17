@@ -1,0 +1,36 @@
+﻿services:
+  presentation-app:
+    image: masterapp/dev:latest
+    container_name: 'merchant.api'
+    build:
+      context: .
+      dockerfile: ./Presentation/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
+      - DefaultConnection=Server=merchant-sql;Database=MerchantDb;User=sa;Password=YourStrong@Passw0rd;
+    ports:
+      - "5000:80"
+    networks:
+      - merchant-net
+    restart: always
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: merchant-sql
+    environment:
+      SA_PASSWORD: "YourStrong@Passw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    networks:
+      - merchant-net
+    volumes:
+      - mssql_data:/var/opt/mssql
+
+volumes:
+  mssql_data:
+
+networks:
+  merchant-net:
+    driver: bridge

@@ -1,0 +1,20 @@
+# This is a generated file. Not intended for manual editing.
+version: "3.8"
+services:
+  presentation-app:
+    build:
+      context: "C:\\Users\\user\\RiderProjects\\MerchantManagementApp"
+      dockerfile: "./Presentation/Dockerfile"
+      target: "build"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/Presentation.dll"
+    environment: {}
+    image: "masterapp/dev:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\user\\RiderProjects\\MerchantManagementApp\\Presentation:/app:rw"
+    - "C:\\Users\\user\\RiderProjects\\MerchantManagementApp:/src:rw"
+    - "C:\\Users\\user\\.nuget\\packages:/root/.nuget/packages"
+    working_dir: "/app"
